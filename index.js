@@ -1,29 +1,16 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors=require("cors");
-
+const cors = require('cors');
+const routes = require('./routes');
+const dotenv = require('dotenv');
+dotenv.config();
 //middleware
-app.use(express.json());//req.body
+app.use(express.json()); //req.body
 app.use(cors());
 
 //ROUTES//
+app.use('/', routes);
 
-//ADMIN LOGIN AND REGISTER ROUTE
-
-app.use("/auth",require("./routes/user"));
-
-//NAVBAR ROUTE
-
-app.use("/nav", require("./routes/navBar"));
-
-//CATEGORYS ROUTE
-
-app.use("/category",require("./routes/category"));
-
-//PRODUCTS ROUTE
-
-app.use("/product", require("./routes/product"))
-
-app.listen(5000,()=>{
-  console.log("server is running on port 5000")
-})
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
